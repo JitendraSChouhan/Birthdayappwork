@@ -1,0 +1,67 @@
+import datetime
+import calendar
+class App:
+    def  __init__(self, BirthDateInstance):
+        self.BDinstance=BirthDateInstance
+        self.Displayinstance= Display( BirthDateInstance )
+        self.CountDayinstance= CountDays(BirthDateInstance,self.Displayinstance)
+
+class Birthdate:
+  def __init__(self,BD):
+      # assumimg BD will be passed as DD-MM-YYYY format and as string
+      mylist=BD.split('-')
+      self.DD=int(mylist[0])
+      self.MM=int(mylist[1])
+      self.YY=int(mylist[2])          
+class Display:
+    def  __init__(self,BDinstance):
+        self.BDinstance=BDinstance
+        #self.message = None
+        self.todayDate= datetime.date.today().strftime("%d-%m-%Y")
+        mytodaylist=self.todayDate.split('-')
+        self.TDD,self.TMM,self.TYY= int(mytodaylist[0]),int(mytodaylist[1]),int(mytodaylist[2])
+        #print(self.TDD,self.TMM)
+        self.message = None
+class CountDays:
+    def __init__(self,BDinstance,Displayinstance):
+        #self.CBDinstance=BDinstance
+        self.monthdiff= BDinstance.MM - Displayinstance.TMM
+       
+   
+       
+    def month(self):
+       
+        if self.monthdiff==1:
+            md = calendar.monthrange(Displayinstance.TYY, Displayinstance.TMM)[1]
+            daysdiff= (md -Displayinstance.TDD) + BDinstance.DD
+           
+            #print(comingdays(daysdiff))
+            #return(comingdays(daysdiff))
+        elif self.monthdiff==-1:
+            md = calendar.monthrange(Displayinstance.TYY, BDinstance.MM)[1]
+            daysdiff= (md - BDinstance.DD) + Displayinstance.TDD
+            #print(previousdays(daysdiff))
+            #return(previousdays(daysdiff))
+        elif self.monthdiff >1:
+            #print(" %d months from now" %self.monthdiff)
+
+            return(" %d months from now" %self.monthdiff)
+        elif self.monthdiff < -2:
+            return(" %d months ago" %self.monthdiff)
+        elif self.monthdiff ==0:
+            daysdiff= BDinstance.DD - Displayinstance.TDD
+            if daysdiff>=0:
+                print("callling...")
+                #return(comingdays(daysdiff))
+            else:
+                print("hhhhh")
+                #return(previousdays(daysdiff)
+       
+   
+               
+#driver code here
+yourbirthdate= input("please enter your birthdate---")
+mybirthInstance=Birthdate(yourbirthdate)
+
+JitenApp=App(mybirthInstance)
+print(JitenApp.CountDayinstance.month())
